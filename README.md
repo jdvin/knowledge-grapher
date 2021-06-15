@@ -1,3 +1,4 @@
 # knowledge-grapher
 
-Add any string representing a concept of interest to root_node, select property_type, and give integer depth to generate a knowledge graph of the root concept
+Draws a property graph of a concept at a given depth.
+Run from main.py. Edit concept, prop, and depth as tree parameters.
