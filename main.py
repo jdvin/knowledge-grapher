@@ -123,7 +123,7 @@ sparql.setReturnFormat(JSON)
 
 root_node = 'computer'
 property_type = Property.HAS_PART
-depth = 3
+depth = 4
 
 g = nx.Graph()
 g.add_node(root_node)
