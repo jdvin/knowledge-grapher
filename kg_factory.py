@@ -47,23 +47,26 @@ class KG_Factory():
             
         return value
 
-    def get_wiki_id(self, namespace, page_name):
+    def get_wiki_id(self, namespace, page_name, id_dict):
         '''
         gets the FIRST ID for a search with page_name in namespace
         '''
-        response = requests.get(f"https://www.wikidata.org/w/api.php?action=query&list=search&srsearch={page_name}&srnamespace={self.namespace_ids[namespace]}&format=json")
-        
-        if namespace == 'item':
-            id_ = self.get_value('title', response.json())
-            self.item_ids[page_name] = id_
-            store_id_dict(self.data_path, 'items', self.item_ids)
+        try:
+            return id_dict[page_name]
+        except KeyError:
+            response = requests.get(f"https://www.wikidata.org/w/api.php?action=query&list=search&srsearch={page_name}&srnamespace={self.namespace_ids[namespace]}&format=json")
             
-        elif namespace == 'property':
-            id_ = self.get_value('title', response.json()).split(":")[1]
-            self.property_ids[page_name] = id_
-            store_id_dict(self.data_path, 'properties', self.item_ids)
+            if namespace == 'item':
+                id_ = self.get_value('title', response.json())
+                self.item_ids[page_name] = id_
+                store_id_dict(self.data_path, 'items', self.item_ids)
+                
+            elif namespace == 'property':
+                id_ = self.get_value('title', response.json()).split(":")[1]
+                self.property_ids[page_name] = id_
+                store_id_dict(self.data_path, 'properties', self.item_ids)
 
-        return id_
+            return id_
 
     def get_properties(self, item, property_):
         self.sparql.setQuery(f"""
@@ -89,7 +92,7 @@ class KG_Factory():
     def get_branches(self, graph, root_concept, property_type, depth):
         depth -=  1
         if depth >= 0:
-            root_concept_id = self.get_wiki_id('item', root_concept)
+            root_concept_id = self.get_wiki_id('item', root_concept, self.item_ids)
             property_nodes = self.get_properties(root_concept_id, self.property_ids[property_type])
             property_edges = [(root_concept, property_node) for property_node in property_nodes]
             
