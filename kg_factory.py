@@ -93,7 +93,8 @@ class KG_Factory():
         depth -=  1
         if depth >= 0:
             root_concept_id = self.get_wiki_id('item', root_concept, self.item_ids)
-            property_nodes = self.get_properties(root_concept_id, self.property_ids[property_type])
+            property_id = self.get_wiki_id('property', property_type, self.property_ids)
+            property_nodes = self.get_properties(root_concept_id, property_id)
             property_edges = [(root_concept, property_node) for property_node in property_nodes]
             
             graph.add_nodes_from(property_nodes)
