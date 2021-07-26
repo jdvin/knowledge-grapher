@@ -8,9 +8,11 @@ import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
 import csv
+import pdb
 
 from organiser import get_id_dict, store_id_dict
 
+colours = ['gold','darkorange','magenta','darkviolet', 'blue', 'aqua']
 
 class KG_Factory():
 
@@ -98,23 +100,38 @@ class KG_Factory():
             property_edges = [(root_concept, property_node) for property_node in property_nodes]
             
             graph.add_nodes_from(property_nodes)
-            graph.add_edges_from(property_edges)
+            graph.add_edges_from(property_edges, object=property_type)
 
             for prop in property_nodes:
                 graph = self.get_branches(graph, prop, property_type, depth)
-        else:
-            return graph
+
         return graph
 
     def root_KG(self, root_node, property_types, depth, graph=None):
         if graph == None: graph = nx.Graph()
         graph.add_node(root_node)
-        graph = self.get_branches(graph, root_node, property_types, depth)
+        for property_type in property_types:
+            graph = self.get_branches(graph, root_node, property_type, depth)
         self.k_graphs.append(graph)
         return graph
 
-    def draw_KG(self, graph):
+    def draw_KG(self, graph, property_types):
         plt.subplot()
-        nx.draw(graph, with_labels=True, font_weight='bold')
+
+        # separate the edges by property_type for c o l o u r
+        edges_by_property = []
+        for property_type in property_types:
+            edges_by_property.append([(u, v) for (u, v, d) in graph.edges(data=True) if d['object'] == property_type])
+        # generate positions for all nodes and draw
+        pos = nx.spring_layout(graph) 
+        nx.draw_networkx_nodes(graph, pos)
+
+        # draw edges colored by their property_type
+        for i,edges in enumerate(edges_by_property):
+            nx.draw_networkx_edges(graph, pos, edgelist=edges, edge_color=colours[i])
+        pdb.set_trace()
+        # draw labels for nodes
+        nx.draw_networkx_labels(graph, pos)
+
         plt.show()
 

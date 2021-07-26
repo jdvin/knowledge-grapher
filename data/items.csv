@@ -5,3 +5,54 @@ central processing unit,Q5300
 software,Q7397
 graphics processing unit,Q183484
 input-output device,Q2384798
+tool,Q39546
+concept,Q151885
+variable-order class,Q23958852
+computing platform,Q241317
+computing infrastructure,Q57392806
+IT system,Q13407144
+system,Q58778
+structure,Q6671777
+artificial entity,Q107032167
+electronic machine,Q12272824
+machine,Q11019
+product,Q542929
+Q16798631,Q10273457
+converter,Q2415537
+device,Q1183543
+computing,Q179310
+applied computer science,Q17619405
+class of computers,Q716676
+computer performance,Q1197550
+computer configuration,Q1781447
+numeric keypad,Q199306
+Num Lock,Q665331
+0 key,Q27885065
+1 key,Q27885066
+2 key,Q27885067
+3 key,Q27885068
+4 key,Q27885070
+5 key,Q27885071
+6 key,Q27885072
+7 key,Q27885073
+8 key,Q27885074
+9 key,Q27885075
+decimal point key,Q27885076
+plus key,Q27885077
+minus key,Q27885078
+multiply key,Q27885079
+divide key,Q27885080
+enter key,Q651095
+computer key,Q27884930
+switch,Q19610114
+keycap,Q6398238
+CPU cache,Q352090
+processor design,Q1303814
+computer program,Q40056
+data,Q42848
+texture mapping unit,Q1660161
+L2 cache,Q12635161
+shader pipeline,Q24587457
+floating-point unit,Q733507
+texture cache,Q24588451
+shared L2 cache,Q24590781
